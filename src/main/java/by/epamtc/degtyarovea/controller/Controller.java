@@ -8,7 +8,9 @@ import by.epamtc.degtyarovea.service.impl.ApplianceServiceException;
 
 import java.util.List;
 
-public class Controller {
+public final class Controller {
+
+    private static final String PARAM_DELIMITER_PATTERN = "\\s+";
 
     private ApplianceService service;
 
@@ -40,7 +42,7 @@ public class Controller {
      * Prepare Criteria object from String request
      */
     private Criteria prepareCriteria(String request) {
-        String[] params = request.split("\\s+");
+        String[] params = request.split(PARAM_DELIMITER_PATTERN);
 
         String applianceName = params[0];
         Criteria criteria = new Criteria(applianceName);
