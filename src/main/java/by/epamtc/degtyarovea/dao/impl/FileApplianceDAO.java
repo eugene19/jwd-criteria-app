@@ -1,6 +1,8 @@
 package by.epamtc.degtyarovea.dao.impl;
 
 import by.epamtc.degtyarovea.dao.ApplianceDAO;
+import by.epamtc.degtyarovea.dao.ApplianceDAOException;
+import by.epamtc.degtyarovea.dao.ApplianceParseException;
 import by.epamtc.degtyarovea.entity.Appliance;
 import by.epamtc.degtyarovea.entity.criteria.Criteria;
 
@@ -14,46 +16,48 @@ public class FileApplianceDAO implements ApplianceDAO {
 
     private static final String DEVICE_FILENAME = "appliances_db.txt";
 
-    private File devicesFile;
+    private DeviceFileReader reader;
+    private DeviceParser parser;
 
     public FileApplianceDAO() {
         ClassLoader loader = getClass().getClassLoader();
-        devicesFile = new File(loader.getResource(DEVICE_FILENAME).getFile());
+        File devicesFile = new File(loader.getResource(DEVICE_FILENAME).getFile());
+        reader = new DeviceFileReader(devicesFile);
+        parser = new DeviceParser();
     }
 
     @Override
-    public List<Appliance> find(Criteria criteria) {
+    public List<Appliance> find(Criteria criteria) throws ApplianceDAOException {
         List<Appliance> appliances = new ArrayList<>();
-        DeviceFileReader reader = new DeviceFileReader(devicesFile);
-        DeviceParser parser = new DeviceParser();
+        String applianceName = criteria.getApplianceName();
 
         try {
-            List<String> applianceLines = reader.readLinesForAppliance(criteria.getApplianceName());
+            List<String> applianceLines = reader.readLinesForAppliance(applianceName);
 
             for (String line : applianceLines) {
-                if (applianceMatchCriteria(criteria, line)) {
-                    // todo make parser
-                    appliances.add(parser.parse(criteria.getApplianceName(), line));
+                if (isApplianceMatchCriteria(criteria, line)) {
+                    Appliance appliance = parser.parse(applianceName, line);
+                    appliances.add(appliance);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | ApplianceParseException e) {
+            throw new ApplianceDAOException(e.getMessage());
         }
 
         return appliances;
     }
 
-    private boolean applianceMatchCriteria(Criteria criteria, String applianceLine) {
+    private boolean isApplianceMatchCriteria(Criteria criteria, String applianceLine) {
         boolean isMatch = true;
-        Map<String, Object> criteria1 = criteria.getCriteria();
+        Map<String, Object> criteriaMap = criteria.getCriteriaMap();
 
-        for (Map.Entry<String, Object> stringObjectEntry : criteria1.entrySet()) {
-            String key = stringObjectEntry.getKey();
-            String value = stringObjectEntry.getValue().toString();
+        for (Map.Entry<String, Object> entry : criteriaMap.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
 
-            String patternToMatch = ".+" + key + "=" + value + ".*";
+            String matchLinePattern = ".+" + key + "=" + value + ".*";
 
-            if (!applianceLine.matches(patternToMatch)) {
+            if (!applianceLine.matches(matchLinePattern)) {
                 isMatch = false;
             }
         }

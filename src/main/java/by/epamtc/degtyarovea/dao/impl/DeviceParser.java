@@ -1,5 +1,6 @@
 package by.epamtc.degtyarovea.dao.impl;
 
+import by.epamtc.degtyarovea.dao.ApplianceParseException;
 import by.epamtc.degtyarovea.entity.*;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class DeviceParser {
 
     private static final String KEY_VALUE_REGEX = "[A-Z_]+=[-\\w.]+";
 
-    public Appliance parse(String applianceName, String line) {
+    public Appliance parse(String applianceName, String line) throws ApplianceParseException {
         switch (applianceName) {
             case "Oven":
                 return parseOven(line);
@@ -26,8 +27,7 @@ public class DeviceParser {
             case "Speakers":
                 return parseSpeakers(line);
             default:
-                //todo replace on my own exception
-                throw new IllegalArgumentException("No such device type: " + applianceName);
+                throw new ApplianceParseException("No such device type: " + applianceName);
         }
     }
 

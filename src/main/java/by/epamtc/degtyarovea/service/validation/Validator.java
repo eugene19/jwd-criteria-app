@@ -9,7 +9,4 @@ public class Validator {
 
         return true;
     }
-
 }
-
-//you may add your own new classes

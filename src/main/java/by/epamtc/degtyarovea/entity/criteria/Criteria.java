@@ -6,7 +6,7 @@ import java.util.Map;
 public class Criteria {
 
     private String applianceName;
-    private Map<String, Object> criteria = new HashMap<>();
+    private Map<String, Object> criteriaMap = new HashMap<>();
 
     public Criteria(String applianceName) {
         this.applianceName = applianceName;
@@ -17,10 +17,10 @@ public class Criteria {
     }
 
     public void add(String searchCriteria, Object value) {
-        criteria.put(searchCriteria, value);
+        criteriaMap.put(searchCriteria, value);
     }
 
-    public Map<String, Object> getCriteria() {
-        return criteria;
+    public Map<String, Object> getCriteriaMap() {
+        return criteriaMap;
     }
 }
