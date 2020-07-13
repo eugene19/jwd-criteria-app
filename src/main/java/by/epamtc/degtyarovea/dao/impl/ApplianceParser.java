@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DeviceParser {
+public class ApplianceParser {
 
     private static final String KEY_VALUE_REGEX = "[A-Z_]+=[-\\w.]+";
 

@@ -16,14 +16,14 @@ public class FileApplianceDAO implements ApplianceDAO {
 
     private static final String DEVICE_FILENAME = "appliances_db.txt";
 
-    private DeviceFileReader reader;
-    private DeviceParser parser;
+    private ApplianceFileReader reader;
+    private ApplianceParser parser;
 
     public FileApplianceDAO() {
         ClassLoader loader = getClass().getClassLoader();
         File devicesFile = new File(loader.getResource(DEVICE_FILENAME).getFile());
-        reader = new DeviceFileReader(devicesFile);
-        parser = new DeviceParser();
+        reader = new ApplianceFileReader(devicesFile);
+        parser = new ApplianceParser();
     }
 
     @Override

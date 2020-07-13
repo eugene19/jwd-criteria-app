@@ -21,7 +21,7 @@ public final class Controller {
     }
 
     /**
-     * @param request - Line in format "<applianceName> <key=value> <key=value> ..."
+     * @param request - Line in format "<applianceName> <key1=value1> <key2=value2> ..."
      * @return Line with matching appliances or error message
      */
     public String execute(String request) {

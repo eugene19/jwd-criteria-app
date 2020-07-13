@@ -12,12 +12,12 @@ public class Criteria {
         this.applianceName = applianceName;
     }
 
-    public String getApplianceName() {
-        return applianceName;
-    }
-
     public void add(String searchCriteria, Object value) {
         criteriaMap.put(searchCriteria, value);
+    }
+
+    public String getApplianceName() {
+        return applianceName;
     }
 
     public Map<String, Object> getCriteriaMap() {

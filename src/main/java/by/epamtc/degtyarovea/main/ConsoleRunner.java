@@ -7,8 +7,8 @@ public class ConsoleRunner {
     public static void main(String[] args) {
         Controller controller = new Controller();
 
-        // request in format "<ApplianceName> <param=value> <param=value> ..."
-        String request = "Speakers FREQUENCY_RANGE=2-3.5";
+        // request in format "<ApplianceName> <param1=value1> <param2=value2> ..."
+        String request = "Oven CAPACITY=33 DEPTH=60";
         String response = controller.execute(request);
 
         System.out.println(response);
