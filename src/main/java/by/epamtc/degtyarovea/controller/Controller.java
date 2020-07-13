@@ -11,13 +11,13 @@ import java.util.List;
 
 public final class Controller {
 
-    private static final String PARAM_DELIMITER_PATTERN = "\\s+";
-
     private ApplianceService service;
+    private RequestParser parser;
 
     public Controller() {
         ServiceFactory factory = ServiceFactory.getInstance();
         this.service = factory.getApplianceService();
+        this.parser = new RequestParser();
     }
 
     /**
@@ -30,7 +30,7 @@ public final class Controller {
         }
 
         String response;
-        Criteria criteria = prepareCriteria(request);
+        Criteria criteria = parser.parse(request);
 
         try {
             List<Appliance> appliances = service.find(criteria);
@@ -40,24 +40,5 @@ public final class Controller {
         }
 
         return response;
-    }
-
-    /**
-     * Prepare Criteria object from String request
-     */
-    private Criteria prepareCriteria(String request) {
-        String[] params = request.split(PARAM_DELIMITER_PATTERN);
-
-        String applianceName = params[0];
-        Criteria criteria = new Criteria(applianceName);
-
-        for (int i = 1; i < params.length; i++) {
-            String keyValuePair = params[i]; // key=value
-            String[] keyValueArray = keyValuePair.split("=");
-
-            criteria.add(keyValueArray[0], keyValueArray[1]);
-        }
-
-        return criteria;
     }
 }

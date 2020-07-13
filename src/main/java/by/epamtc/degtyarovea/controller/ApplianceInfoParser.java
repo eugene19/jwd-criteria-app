@@ -10,7 +10,6 @@ public class ApplianceInfoParser {
         StringBuilder builder = new StringBuilder();
 
         for (Appliance appliance : appliances) {
-            // TODO: 7/13/20 replace Appliance.toString()
             builder.append(appliance.toString())
                     .append("\n");
         }
