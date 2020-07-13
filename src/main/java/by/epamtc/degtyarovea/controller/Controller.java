@@ -25,18 +25,16 @@ public final class Controller {
      * @return Line with matching appliances or error message
      */
     public String execute(String request) {
-        String response;
-
         if (!RequestValidator.validate(request)) {
-            response = "Request is not valid.";
-            return response;
+            return "Request is not valid.";
         }
 
+        String response;
         Criteria criteria = prepareCriteria(request);
 
         try {
             List<Appliance> appliances = service.find(criteria);
-            response = PrintApplianceInfo.print(appliances);
+            response = ApplianceInfoParser.parseToString(appliances);
         } catch (ApplianceServiceException e) {
             response = e.getMessage();
         }
