@@ -1,5 +1,6 @@
 package by.epamtc.degtyarovea.controller;
 
+import by.epamtc.degtyarovea.controller.validation.RequestValidator;
 import by.epamtc.degtyarovea.entity.Appliance;
 import by.epamtc.degtyarovea.entity.criteria.Criteria;
 import by.epamtc.degtyarovea.service.ApplianceService;
@@ -25,6 +26,11 @@ public final class Controller {
      */
     public String execute(String request) {
         String response;
+
+        if (!RequestValidator.validate(request)) {
+            response = "Request is not valid.";
+            return response;
+        }
 
         Criteria criteria = prepareCriteria(request);
 
@@ -53,6 +59,7 @@ public final class Controller {
 
             criteria.add(keyValueArray[0], keyValueArray[1]);
         }
+
         return criteria;
     }
 }

@@ -6,7 +6,7 @@ import by.epamtc.degtyarovea.dao.DAOFactory;
 import by.epamtc.degtyarovea.entity.Appliance;
 import by.epamtc.degtyarovea.entity.criteria.Criteria;
 import by.epamtc.degtyarovea.service.ApplianceService;
-import by.epamtc.degtyarovea.service.validation.Validator;
+import by.epamtc.degtyarovea.service.validation.CriteriaValidator;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class ApplianceServiceImpl implements ApplianceService {
 
     @Override
     public List<Appliance> find(Criteria criteria) throws ApplianceServiceException {
-        if (!Validator.validateCriteria(criteria)) {
+        if (!CriteriaValidator.validate(criteria)) {
             throw new ApplianceServiceException("Criteria is not valid.");
         }
 
