@@ -6,6 +6,7 @@ import by.epamtc.degtyarovea.dao.DAOFactory;
 import by.epamtc.degtyarovea.entity.Appliance;
 import by.epamtc.degtyarovea.entity.criteria.Criteria;
 import by.epamtc.degtyarovea.service.ApplianceService;
+import by.epamtc.degtyarovea.service.ApplianceServiceException;
 import by.epamtc.degtyarovea.service.validation.CriteriaValidator;
 
 import java.util.List;

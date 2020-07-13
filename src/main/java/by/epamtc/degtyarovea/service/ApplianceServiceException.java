@@ -1,4 +1,4 @@
-package by.epamtc.degtyarovea.service.impl;
+package by.epamtc.degtyarovea.service;
 
 public class ApplianceServiceException extends Exception {
 

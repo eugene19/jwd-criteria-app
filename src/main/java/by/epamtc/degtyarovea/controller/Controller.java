@@ -4,8 +4,8 @@ import by.epamtc.degtyarovea.controller.validation.RequestValidator;
 import by.epamtc.degtyarovea.entity.Appliance;
 import by.epamtc.degtyarovea.entity.criteria.Criteria;
 import by.epamtc.degtyarovea.service.ApplianceService;
+import by.epamtc.degtyarovea.service.ApplianceServiceException;
 import by.epamtc.degtyarovea.service.ServiceFactory;
-import by.epamtc.degtyarovea.service.impl.ApplianceServiceException;
 
 import java.util.List;
 
