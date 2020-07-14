@@ -13,14 +13,19 @@ import java.util.List;
 
 public class ApplianceServiceImpl implements ApplianceService {
 
+    private ApplianceDAO applianceDAO;
+
+    public ApplianceServiceImpl() {
+        DAOFactory factory = DAOFactory.getInstance();
+        this.applianceDAO = factory.getApplianceDAO();
+    }
+
     @Override
     public List<Appliance> find(Criteria criteria) throws ApplianceServiceException {
         if (!CriteriaValidator.validate(criteria)) {
             throw new ApplianceServiceException("Criteria is not valid.");
         }
 
-        DAOFactory factory = DAOFactory.getInstance();
-        ApplianceDAO applianceDAO = factory.getApplianceDAO();
         List<Appliance> appliances;
 
         try {

@@ -1,4 +1,4 @@
-package by.epamtc.degtyarovea.dao;
+package by.epamtc.degtyarovea.dao.impl;
 
 public class ApplianceParseException extends Exception {
 

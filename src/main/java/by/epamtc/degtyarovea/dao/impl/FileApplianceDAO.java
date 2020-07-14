@@ -2,7 +2,6 @@ package by.epamtc.degtyarovea.dao.impl;
 
 import by.epamtc.degtyarovea.dao.ApplianceDAO;
 import by.epamtc.degtyarovea.dao.ApplianceDAOException;
-import by.epamtc.degtyarovea.dao.ApplianceParseException;
 import by.epamtc.degtyarovea.entity.Appliance;
 import by.epamtc.degtyarovea.entity.criteria.Criteria;
 
@@ -47,6 +46,11 @@ public class FileApplianceDAO implements ApplianceDAO {
         return appliances;
     }
 
+    /**
+     * @param criteria      - search criteria.
+     * @param applianceLine - appliance line from file.
+     * @return if appliance line contains all criteria's params
+     */
     private boolean isApplianceMatchCriteria(Criteria criteria, String applianceLine) {
         boolean isMatch = true;
         Map<String, Object> criteriaMap = criteria.getCriteriaMap();

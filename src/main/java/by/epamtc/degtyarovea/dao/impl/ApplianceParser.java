@@ -1,6 +1,5 @@
 package by.epamtc.degtyarovea.dao.impl;
 
-import by.epamtc.degtyarovea.dao.ApplianceParseException;
 import by.epamtc.degtyarovea.entity.*;
 
 import java.util.ArrayList;
@@ -27,13 +26,13 @@ public class ApplianceParser {
             case "Speakers":
                 return parseSpeakers(line);
             default:
-                throw new ApplianceParseException("No such device type: " + applianceName);
+                throw new ApplianceParseException("No such appliance: " + applianceName);
         }
     }
 
-    public Laptop parseLaptop(String device) {
+    public Laptop parseLaptop(String appliance) {
         Laptop laptop = new Laptop();
-        List<String> attributes = getAttributes(device);
+        List<String> attributes = getAttributes(appliance);
 
         laptop.setBatteryCapacity(Double.parseDouble(attributes.get(0)));
         laptop.setOS(attributes.get(1));
@@ -45,9 +44,9 @@ public class ApplianceParser {
         return laptop;
     }
 
-    public Oven parseOven(String device) {
+    public Oven parseOven(String appliance) {
         Oven oven = new Oven();
-        List<String> attributes = getAttributes(device);
+        List<String> attributes = getAttributes(appliance);
 
         oven.setPowerConsumption(Integer.parseInt(attributes.get(0)));
         oven.setWeight(Double.parseDouble(attributes.get(1)));
@@ -59,9 +58,9 @@ public class ApplianceParser {
         return oven;
     }
 
-    public Refrigerator parseRefrigerator(String device) {
+    public Refrigerator parseRefrigerator(String appliance) {
         Refrigerator refrigerator = new Refrigerator();
-        List<String> attributes = getAttributes(device);
+        List<String> attributes = getAttributes(appliance);
 
         refrigerator.setPowerConsumption(Integer.parseInt(attributes.get(0)));
         refrigerator.setWeight(Double.parseDouble(attributes.get(1)));
@@ -73,9 +72,9 @@ public class ApplianceParser {
         return refrigerator;
     }
 
-    public Speakers parseSpeakers(String device) {
+    public Speakers parseSpeakers(String appliance) {
         Speakers speakers = new Speakers();
-        List<String> attributes = getAttributes(device);
+        List<String> attributes = getAttributes(appliance);
 
         speakers.setPowerConsumption(Integer.parseInt(attributes.get(0)));
         speakers.setNumberOfSpeakers(Integer.parseInt(attributes.get(1)));
@@ -85,9 +84,9 @@ public class ApplianceParser {
         return speakers;
     }
 
-    public TabletPC parseTabletPC(String device) {
+    public TabletPC parseTabletPC(String appliance) {
         TabletPC tabletPC = new TabletPC();
-        List<String> attributes = getAttributes(device);
+        List<String> attributes = getAttributes(appliance);
 
         tabletPC.setBatteryCapacity(Double.parseDouble(attributes.get(0)));
         tabletPC.setDisplayInches(Double.parseDouble(attributes.get(1)));
@@ -98,9 +97,9 @@ public class ApplianceParser {
         return tabletPC;
     }
 
-    public VacuumCleaner parseVacuumCleaner(String device) {
+    public VacuumCleaner parseVacuumCleaner(String appliance) {
         VacuumCleaner vacuumCleaner = new VacuumCleaner();
-        List<String> attributes = getAttributes(device);
+        List<String> attributes = getAttributes(appliance);
 
         vacuumCleaner.setPowerConsumption(Integer.parseInt(attributes.get(0)));
         vacuumCleaner.setFilterType(attributes.get(1));
@@ -112,9 +111,9 @@ public class ApplianceParser {
         return vacuumCleaner;
     }
 
-    private List<String> getAttributes(String device) {
+    private List<String> getAttributes(String appliance) {
         List<String> attributes = new ArrayList<>();
-        Matcher matcher = Pattern.compile(KEY_VALUE_REGEX).matcher(device);
+        Matcher matcher = Pattern.compile(KEY_VALUE_REGEX).matcher(appliance);
 
         while (matcher.find()) {
             String[] pair = matcher.group().split("=");
