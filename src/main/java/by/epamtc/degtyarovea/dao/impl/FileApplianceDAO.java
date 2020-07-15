@@ -40,7 +40,7 @@ public class FileApplianceDAO implements ApplianceDAO {
                 }
             }
         } catch (IOException | ApplianceParseException e) {
-            throw new ApplianceDAOException(e.getMessage());
+            throw new ApplianceDAOException(e);
         }
 
         return appliances;

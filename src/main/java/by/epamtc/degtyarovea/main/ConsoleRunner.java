@@ -8,9 +8,9 @@ public class ConsoleRunner {
         Controller controller = new Controller();
 
         // request in format "<ApplianceName> <param1=value1> <param2=value2> ..."
-        String request = "VacuumCleaner POWER_CONSUMPTION=100 WAND_TYPE=all-in-one";
+        String request = "Oven CAPACITY=33 DEPTH=60";
         String response = controller.execute(request);
 
-        System.out.println(response);
+        System.out.print(response);
     }
 }
