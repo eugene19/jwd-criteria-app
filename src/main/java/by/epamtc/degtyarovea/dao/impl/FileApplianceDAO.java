@@ -2,6 +2,8 @@ package by.epamtc.degtyarovea.dao.impl;
 
 import by.epamtc.degtyarovea.dao.ApplianceDAO;
 import by.epamtc.degtyarovea.dao.ApplianceDAOException;
+import by.epamtc.degtyarovea.dao.builder.AbstractBuilder;
+import by.epamtc.degtyarovea.dao.builder.ApplianceBuilderFactory;
 import by.epamtc.degtyarovea.entity.Appliance;
 import by.epamtc.degtyarovea.entity.criteria.Criteria;
 
@@ -16,30 +18,30 @@ public class FileApplianceDAO implements ApplianceDAO {
     private static final String DEVICE_FILENAME = "appliances_db.txt";
 
     private ApplianceFileReader reader;
-    private ApplianceParser parser;
 
     public FileApplianceDAO() {
         ClassLoader loader = getClass().getClassLoader();
         File devicesFile = new File(loader.getResource(DEVICE_FILENAME).getFile());
         reader = new ApplianceFileReader(devicesFile);
-        parser = new ApplianceParser();
     }
 
     @Override
     public List<Appliance> find(Criteria criteria) throws ApplianceDAOException {
         List<Appliance> appliances = new ArrayList<>();
         String applianceName = criteria.getApplianceName();
+        AbstractBuilder builderFactory = ApplianceBuilderFactory.createBuilder(applianceName);
 
         try {
             List<String> applianceLines = reader.readLinesForAppliance(applianceName);
 
             for (String line : applianceLines) {
                 if (isApplianceMatchCriteria(criteria, line)) {
-                    Appliance appliance = parser.parse(applianceName, line);
+                    Map<String, String> attributes = FileApplianceParser.getAttributesMap(line);
+                    Appliance appliance = builderFactory.build(attributes);
                     appliances.add(appliance);
                 }
             }
-        } catch (IOException | ApplianceParseException e) {
+        } catch (IOException e) {
             throw new ApplianceDAOException(e);
         }
 
